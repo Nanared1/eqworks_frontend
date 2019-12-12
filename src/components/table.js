@@ -1,45 +1,44 @@
 import React from 'react'
-import { Icon, Label, Menu, Table, Container } from 'semantic-ui-react'
+import { Table, Container } from 'semantic-ui-react'
 
-const TableData = () => {
+const TableData = ({data}) => {
+
+    //get keys from json for headers
+    const keys = Object.keys(data[0]);
+
+    //map keys and display as table headers
+    const displayHeaders = keys.map( (head, i) => {
+        return(
+            <Table.HeaderCell key={i} >{head}</Table.HeaderCell>
+        );
+    });
+    
+    // map all objects in data array
+    // map object for values and display as cell on table
+                // find a better way!!!!!!
+    const displayBody = data.map( (obj, i) => {
+        return(
+            <Table.Row key={i}>
+                {
+                    Object.values(obj).map( (val, k) => {
+                        return <Table.Cell key={k}>{val}</Table.Cell>
+                    })
+                }
+            </Table.Row>
+        )
+    });
+
     return (
-        <Container>
-            <Table celled>
+        <Container> 
+            <Table striped>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Status</Table.HeaderCell>
-                        <Table.HeaderCell>Notes</Table.HeaderCell>
+                        {displayHeaders}
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
-                    <Table.Row>
-                        <Table.Cell>No Name Specified</Table.Cell>
-                        <Table.Cell>Unknown</Table.Cell>
-                        <Table.Cell negative>None</Table.Cell>
-                    </Table.Row>
-                    <Table.Row positive>
-                        <Table.Cell>Jimmy</Table.Cell>
-                        <Table.Cell>
-                        <Icon name='checkmark' />
-                        Approved
-                        </Table.Cell>
-                        <Table.Cell>None</Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell>Jamie</Table.Cell>
-                        <Table.Cell>Unknown</Table.Cell>
-                        <Table.Cell positive>
-                        <Icon name='close' />
-                        Requires call
-                        </Table.Cell>
-                    </Table.Row>
-                    <Table.Row negative>
-                        <Table.Cell>Jill</Table.Cell>
-                        <Table.Cell>Unknown</Table.Cell>
-                        <Table.Cell>None</Table.Cell>
-                    </Table.Row>
+                    {displayBody}
                 </Table.Body>
             </Table>
         </Container>
