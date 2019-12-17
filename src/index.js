@@ -2,16 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
-import { requestData } from './reducers';
-import { createStore, applyMiddleware } from 'redux';
+import { requestData, searchData, requestTime } from './reducers';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import * as serviceWorker from './serviceWorker';
 
 const logger = createLogger();
-
-const store = createStore(requestData, applyMiddleware(thunkMiddleware, logger));
+const rootReducers = combineReducers({ requestData, searchData, requestTime })
+const store = createStore(rootReducers, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(
     <Provider store={store}>
