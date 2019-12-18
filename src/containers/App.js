@@ -102,12 +102,12 @@ class App extends React.Component {
       eventsHourly,
       isPending,
       onSearch,
-      onStartTime,
-      onEndTime,
+      // onStartTime,
+      // onEndTime,
       poi, 
       searchField,
-      startTime,
-      endTime
+      // startTime,
+      // endTime
       
     } = this.props
 
